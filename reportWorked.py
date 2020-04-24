@@ -40,7 +40,7 @@ criteria_not_worked_sprint = Criteria(*ALL_PROJECTS_MY_TEAM)\
 
 # que tomamos por fuera
 criteria_do_worked_out_sprint = Criteria(*ALL_PROJECTS_MY_TEAM)\
-    .add(Restrictions.not_eq_enum(Labels.SP))\
+    .add(Restrictions.add_or(Restrictions.not_eq_enum(Labels.SP), Restrictions.is_null(Field.LABELS)))\
     .add(Restrictions.change_to_status_during(Status.STORY_PROGRESS, toDate, fromDate))\
     .add(storyWorkByMyTeam)\
     .add_order(Field.ASSIGNEE, Field.PRIORITY, Field.PROJECT, Field.KEY)\
